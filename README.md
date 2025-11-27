@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Laravel Admin Panel
 
@@ -42,3 +43,6 @@
 
 ## Лицензия
 MIT
+=======
+# laravel-admin-panel
+>>>>>>> 3ecd2d1bf0319a53b89dfc8860ef12c8fba5b215
