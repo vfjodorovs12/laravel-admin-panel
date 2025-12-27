@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * Модель пользователя
  * 
- * Расширенная модель пользователя с поддержкой ролей администратора
+ * Расширенная модель пользователя с поддержкой ролей и прав доступа
  * 
  * @property int $id
  * @property string $name
@@ -25,7 +26,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -61,16 +62,6 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
-    }
-    
-    /**
-     * Проверка, является ли пользователь администратором
-     * 
-     * @return bool
-     */
-    public function isAdmin(): bool
-    {
-        return $this->is_admin === true;
     }
     
     /**
