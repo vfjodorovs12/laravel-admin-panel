@@ -137,8 +137,13 @@ class User extends Authenticatable
      */
     public function hasAllRoles(array $roles): bool
     {
+        // Базовая реализация: проверяем каждую роль
         foreach ($roles as $role) {
-            if (!$this->hasRole($role)) {
+            // Прямая проверка без лишних преобразований
+            if ($role === 'admin' && !$this->is_admin) {
+                return false;
+            } elseif ($role !== 'admin') {
+                // В базовой реализации поддерживается только роль admin
                 return false;
             }
         }
