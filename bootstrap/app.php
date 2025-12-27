@@ -23,9 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\LogRequests::class,
         ]);
     })
-    ->withProviders([
-        \App\Providers\RoleServiceProvider::class,
-    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         // Логируем все исключения
         $exceptions->report(function (Throwable $e) {

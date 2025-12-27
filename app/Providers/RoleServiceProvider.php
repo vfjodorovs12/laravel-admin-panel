@@ -23,6 +23,17 @@ class RoleServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Регистрируем Blade директивы только если конфигурация view доступна
+        try {
+            $cachePath = config('view.compiled');
+            if (!$cachePath) {
+                return;
+            }
+        } catch (\Throwable $e) {
+            // Конфигурация недоступна (например, во время composer install)
+            return;
+        }
+
         // Директива для проверки роли
         // Использование: @role('admin') ... @endrole
         Blade::if('role', function (string ...$roles) {
