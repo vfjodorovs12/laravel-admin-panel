@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Регистрация middleware для админ-панели
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         ]);
         
         // Добавляем глобальное логирование всех запросов

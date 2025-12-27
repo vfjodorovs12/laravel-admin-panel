@@ -94,4 +94,80 @@ class User extends Authenticatable
     {
         return $query->where('is_admin', false);
     }
+    
+    /**
+     * Проверка наличия роли у пользователя
+     * 
+     * При передаче массива проверяет наличие хотя бы одной из ролей (OR логика)
+     * 
+     * @param string|array $roles Роль или массив ролей для проверки
+     * @return bool
+     */
+    public function hasRole(string|array $roles): bool
+    {
+        $roles = is_array($roles) ? $roles : [$roles];
+        
+        // Базовая реализация: проверяем роль 'admin' через is_admin
+        foreach ($roles as $role) {
+            if ($role === 'admin' && $this->is_admin) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Проверка наличия хотя бы одной из ролей
+     * 
+     * @param array $roles Массив ролей для проверки
+     * @return bool
+     */
+    public function hasAnyRole(array $roles): bool
+    {
+        // hasRole уже реализует OR логику для массивов
+        return $this->hasRole($roles);
+    }
+    
+    /**
+     * Проверка наличия всех указанных ролей
+     * 
+     * @param array $roles Массив ролей для проверки
+     * @return bool
+     */
+    public function hasAllRoles(array $roles): bool
+    {
+        // Базовая реализация: проверяем каждую роль
+        foreach ($roles as $role) {
+            // Прямая проверка без лишних преобразований
+            if ($role === 'admin' && !$this->is_admin) {
+                return false;
+            } elseif ($role !== 'admin') {
+                // В базовой реализации поддерживается только роль admin
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Проверка наличия прав доступа у пользователя
+     * 
+     * При передаче массива проверяет наличие хотя бы одного из прав (OR логика)
+     * 
+     * @param string|array $permissions Право или массив прав для проверки
+     * @return bool
+     */
+    public function hasPermission(string|array $permissions): bool
+    {
+        $permissions = is_array($permissions) ? $permissions : [$permissions];
+        
+        // Базовая реализация: администраторы имеют все права
+        if ($this->is_admin) {
+            return true;
+        }
+        
+        return false;
+    }
 }
