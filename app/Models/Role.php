@@ -18,6 +18,8 @@ class Role extends Model
 
     /**
      * Пользователи с этой ролью
+     * 
+     * @return BelongsToMany
      */
     public function users(): BelongsToMany
     {
@@ -26,6 +28,8 @@ class Role extends Model
 
     /**
      * Права доступа этой роли
+     * 
+     * @return BelongsToMany
      */
     public function permissions(): BelongsToMany
     {
@@ -34,6 +38,9 @@ class Role extends Model
 
     /**
      * Назначить право доступа роли
+     * 
+     * @param Permission|string $permission Модель Permission или имя права доступа
+     * @return self
      */
     public function givePermissionTo(Permission|string $permission): self
     {
@@ -48,6 +55,9 @@ class Role extends Model
 
     /**
      * Отозвать право доступа у роли
+     * 
+     * @param Permission|string $permission Модель Permission или имя права доступа
+     * @return self
      */
     public function revokePermissionTo(Permission|string $permission): self
     {
@@ -62,6 +72,9 @@ class Role extends Model
 
     /**
      * Проверка наличия права у роли
+     * 
+     * @param string $permission Имя права доступа
+     * @return bool
      */
     public function hasPermission(string $permission): bool
     {

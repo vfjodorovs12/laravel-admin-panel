@@ -18,6 +18,8 @@ class Permission extends Model
 
     /**
      * Роли с этим правом доступа
+     * 
+     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {

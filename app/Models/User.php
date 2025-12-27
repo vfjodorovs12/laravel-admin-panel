@@ -66,6 +66,8 @@ class User extends Authenticatable
     
     /**
      * Роли пользователя
+     * 
+     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
