@@ -98,6 +98,8 @@ class User extends Authenticatable
     /**
      * Проверка наличия роли у пользователя
      * 
+     * При передаче массива проверяет наличие хотя бы одной из ролей (OR логика)
+     * 
      * @param string|array $roles Роль или массив ролей для проверки
      * @return bool
      */
@@ -123,6 +125,7 @@ class User extends Authenticatable
      */
     public function hasAnyRole(array $roles): bool
     {
+        // hasRole уже реализует OR логику для массивов
         return $this->hasRole($roles);
     }
     
@@ -145,6 +148,8 @@ class User extends Authenticatable
     
     /**
      * Проверка наличия прав доступа у пользователя
+     * 
+     * При передаче массива проверяет наличие хотя бы одного из прав (OR логика)
      * 
      * @param string|array $permissions Право или массив прав для проверки
      * @return bool
